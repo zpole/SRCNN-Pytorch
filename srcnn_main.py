@@ -76,7 +76,7 @@ def train(epoch, trainSet):
     print("===> Epoch {} Complete: Avg. Loss: {:.4f}".format(epoch, epoch_loss / len(trainSet)))
 
 
-def test(epoch, testSet, saveImgFlag):
+def test(epoch, testSet, saveImgFlag, model):
     sum_psnr = 0
     for itr, data in enumerate(testSet):
         imgs, label = data
@@ -87,8 +87,8 @@ def test(epoch, testSet, saveImgFlag):
         if use_gpu:
             imgLR = imgLR.cuda()
             imgHR = imgLR.cuda()
-
-        sr_result = srcnn(imgLR)
+        model = torch.load('model.pth')
+        sr_result = model(imgLR)
 
         if use_gpu:
             outImg = sr_result.data.cpu().squeeze(0)
@@ -114,5 +114,5 @@ for epoch in range(1, epoch + 1):
     #test(epoch, testSet, 0)
 # outFileName = baseName + 'epoch_' + str(epoch) + '.jpg'
 # saveImg(outImg, outFileName)
-
-test(epoch, testSet, 1)
+    torch.save(srcnn, 'model.pth')
+    test(epoch, testSet, 1)
