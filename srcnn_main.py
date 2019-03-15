@@ -19,8 +19,8 @@ learn_rate = 0.0001
 use_gpu = 1
 trainLR = []
 trainHR = []
-train_path = '/home/qianzhi/srcnn/DIV2K_train_HR'
-test_path = '/home/qianzhi/srcnn/DIV2K_valid_HR'
+train_path = '/home/qianzhi/srcnn/train'
+test_path = '/home/qianzhi/srcnn/test'
 baseName = 'output/out_'
 # =====================#
 
@@ -28,7 +28,7 @@ transform_data = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-dl_dataset()
+# dl_dataset()
 
 
 def transform(img):
