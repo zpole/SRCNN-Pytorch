@@ -21,7 +21,7 @@ trainLR = []
 trainHR = []
 train_path = '/home/qianzhi/srcnn/train'
 test_path = '/home/qianzhi/srcnn/test'
-baseName = 'output/out_'
+baseName = 'output/'
 # =====================#
 
 transform_data = transforms.Compose(
@@ -96,7 +96,7 @@ def test(epoch, testSet, saveImgFlag):
             outImg = sr_result.data.squeeze(0)
 
         if saveImgFlag:
-            outFileName = baseName + 'epoch_' + str(epoch) + '_' + str(itr) + '.jpg'
+            outFileName = baseName + str(itr) + '.jpg'
             saveImg(outImg, outFileName)
 
         MSE = loss_func(sr_result, imgHR)
