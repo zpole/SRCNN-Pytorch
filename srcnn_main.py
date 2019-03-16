@@ -96,13 +96,13 @@ def test(epoch, testSet, saveImgFlag):
             outImg = sr_result.data.squeeze(0)
 
         if saveImgFlag:
-            outFileName = baseName + str(itr) + '.jpg'
+            outFileName = baseName + str(itr+1) + '.jpg'
             saveImg(outImg, outFileName)
 
-        MSE = loss_func(sr_result, imgHR)
-        psnr = 10 * log10(1 / MSE.item())
-        sum_psnr += psnr
-    print("**Average PSNR: {} dB".format(sum_psnr / len(testSet)))
+    #     MSE = loss_func(sr_result, imgHR)
+    #     psnr = 10 * log10(1 / MSE.item())
+    #     sum_psnr += psnr
+    # print("**Average PSNR: {} dB".format(sum_psnr / len(testSet)))
 
 
 # return outImg
