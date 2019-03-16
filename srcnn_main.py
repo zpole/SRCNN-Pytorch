@@ -76,7 +76,7 @@ def train(epoch, trainSet):
     print("===> Epoch {} Complete: Avg. Loss: {:.4f}".format(epoch, epoch_loss / len(trainSet)))
 
 
-def test(epoch, testSet, saveImgFlag, model):
+def test(epoch, testSet, saveImgFlag):
     sum_psnr = 0
     for itr, data in enumerate(testSet):
         imgs, label = data
@@ -110,9 +110,9 @@ def test(epoch, testSet, saveImgFlag, model):
 outImg = []
 
 for epoch in range(1, epoch + 1):
-    train(epoch, trainSet)
+    #train(epoch, trainSet)
     #test(epoch, testSet, 0)
 # outFileName = baseName + 'epoch_' + str(epoch) + '.jpg'
 # saveImg(outImg, outFileName)
-    torch.save(srcnn, 'model.pth')
+    #torch.save(srcnn, 'model.pth')
     test(epoch, testSet, 1)
