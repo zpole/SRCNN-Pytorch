@@ -35,6 +35,7 @@ def transform(img):
     crop = transforms.CenterCrop(
         (int(img.size[1] / upscale_factor) * upscale_factor, int(img.size[0] / upscale_factor) * upscale_factor))
     img = crop(img)
+    out = img
     # out = img.filter(IF.GaussianBlur(1.3))  # .convert('YCbCr')
     out = out.resize((int(out.size[0] / upscale_factor), int(out.size[1] / upscale_factor)))
     out = out.resize((int(out.size[0] * upscale_factor), int(out.size[1] * upscale_factor)))
