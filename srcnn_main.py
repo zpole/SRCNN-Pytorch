@@ -19,8 +19,8 @@ learn_rate = 0.0001
 use_gpu = 1
 trainLR = []
 trainHR = []
-train_path = 'dataset/DIV2K_train_HR'
-test_path = 'dataset/DIV2K_valid_HR'
+train_path = '/home/qianzhi/SRCNN-Pytorch/dataset/DIV2K_train_HR'
+test_path = '/home/qianzhi/SRCNN-Pytorch/dataset/DIV2K_valid_HR'
 baseName = 'output/'
 # =====================#
 
