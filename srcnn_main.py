@@ -19,8 +19,8 @@ learn_rate = 0.0001
 use_gpu = 1
 trainLR = []
 trainHR = []
-train_path = '/home/qianzhi/srcnn/train'
-test_path = '/home/qianzhi/srcnn/test'
+train_path = 'dataset/DIV2K_train_HR'
+test_path = 'dataset/DIV2K_valid_HR'
 baseName = 'output/'
 # =====================#
 
@@ -35,7 +35,7 @@ def transform(img):
     crop = transforms.CenterCrop(
         (int(img.size[1] / upscale_factor) * upscale_factor, int(img.size[0] / upscale_factor) * upscale_factor))
     img = crop(img)
-    out = img.filter(IF.GaussianBlur(1.3))  # .convert('YCbCr')
+    # out = img.filter(IF.GaussianBlur(1.3))  # .convert('YCbCr')
     out = out.resize((int(out.size[0] / upscale_factor), int(out.size[1] / upscale_factor)))
     out = out.resize((int(out.size[0] * upscale_factor), int(out.size[1] * upscale_factor)))
     return transform_data(out), transform_data(img)
@@ -78,6 +78,7 @@ def train(epoch, trainSet):
 
 def test(epoch, testSet, saveImgFlag):
     sum_psnr = 0
+    model = torch.load('model.pth')
     for itr, data in enumerate(testSet):
         imgs, label = data
         imgLR, imgHR = imgs
@@ -87,7 +88,6 @@ def test(epoch, testSet, saveImgFlag):
         if use_gpu:
             imgLR = imgLR.cuda()
             imgHR = imgLR.cuda()
-        model = torch.load('model.pth')
         sr_result = model(imgLR)
 
         if use_gpu:
@@ -110,9 +110,9 @@ def test(epoch, testSet, saveImgFlag):
 outImg = []
 
 for epoch in range(1, epoch + 1):
-    #train(epoch, trainSet)
+    train(epoch, trainSet)
     #test(epoch, testSet, 0)
 # outFileName = baseName + 'epoch_' + str(epoch) + '.jpg'
 # saveImg(outImg, outFileName)
-    #torch.save(srcnn, 'model.pth')
+    torch.save(srcnn, 'model.pth')
     test(epoch, testSet, 1)
